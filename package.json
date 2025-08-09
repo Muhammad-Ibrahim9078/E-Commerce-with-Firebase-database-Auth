@@ -1,6 +1,21 @@
 {
+  "name": "firebase-auth-dashboard",
+  "version": "1.0.0",
+  "description": "Firebase authentication and dashboard application",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
+    "build": "npx tailwindcss -i ./src/input.css -o ./src/output.css",
+    "start": "npx serve ."
+  },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
     "tailwindcss": "^4.1.11"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

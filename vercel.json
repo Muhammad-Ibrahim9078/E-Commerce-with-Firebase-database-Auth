@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "Other Files/**/*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/src/signup.html"
+    },
+    {
+      "src": "/signup",
+      "dest": "/src/signup.html"
+    },
+    {
+      "src": "/login",
+      "dest": "/Other Files/login.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/Other Files/dashboard.html"
+    },
+    {
+      "src": "/user-dashboard",
+      "dest": "/Other Files/userDashboard.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/src/$1"
+    }
+  ]
+}
