@@ -54,7 +54,7 @@ if (getSbtn) {
                 popupText.innerText = "✅ Successfully Create Account!";
             setTimeout(() => {
                 popup.style.display = "none";
-                window.location.replace("../Other Files/login.html");
+                window.location.replace("/login");
             }, 1000);
             })
             .catch((error) => {
@@ -98,7 +98,7 @@ if (lbtn) {
                 popupText.innerText = "✅ Successfully Logged In!";
             setTimeout(() => {
                 popup.style.display = "none";
-                window.location.replace("dashboard.html");
+                window.location.replace("/dashboard");
             }, 1000);
           }
   else if(email !== 'adminbro@gmail.com'){      // check email This is Admin or Not
@@ -109,7 +109,7 @@ if (lbtn) {
                 popupText.innerText = "✅ Successfully Logged In!";
             setTimeout(() => {
                 popup.style.display = "none";
-                window.location.replace("../Other Files/userDashboard.html");
+                window.location.replace("/user-dashboard");
             }, 1000);
     
 
@@ -139,7 +139,7 @@ logout.addEventListener("click", ()=>{
 signOut(auth).then(() => {
   // Sign-out successful.
   console.log("logout")
-  window.location.replace("../Other Files/login.html");
+  window.location.replace("/login");
 }).catch((error) => {
   // An error happened.
 });
