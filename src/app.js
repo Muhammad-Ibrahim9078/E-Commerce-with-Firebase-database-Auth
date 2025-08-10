@@ -28,11 +28,17 @@ if (getSbtn) {
   let popupText = document.getElementById("popup-text");
     
   getSbtn.addEventListener('click', () => {
+    let name = document.querySelector("#sname").value.trim()
     let email = document.querySelector("#semail").value.trim()
     let password = document.querySelector("#spass").value.trim()
     
-    if (!email || !password) {
+    if (!name || !email || !password) {
       alert("Please fill in all fields");
+      return;
+    }
+    
+    if (name.length < 2) {
+      alert("Name must be at least 2 characters long");
       return;
     }
     
@@ -41,26 +47,49 @@ if (getSbtn) {
       return;
     }
     
+    // Show loading popup
+    popup.style.display = "flex";
+    popupText.innerText = "Creating account...";
+    
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      popup.style.display = "flex";
-      popupText.innerText = "Creating account...";
       const user = userCredential.user;
-      console.log(user.email)
-      popupText.innerText = "✅ Successfully Created Account!";
-      setTimeout(() => {
-        popup.style.display = "none";
-        window.location.replace("/login");
-      }, 1000);
+      console.log("User created:", user.email);
+      
+      // Save user data to Firestore
+      addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: name,
+        email: email,
+        createdAt: new Date()
+      }).then(() => {
+        popupText.innerText = "✅ Successfully Created Account!";
+        setTimeout(() => {
+          popup.style.display = "none";
+          window.location.replace("/login");
+        }, 1500);
+      }).catch((error) => {
+        console.error("Error saving user data:", error);
+        popupText.innerText = "✅ Account created but data save failed!";
+        setTimeout(() => {
+          popup.style.display = "none";
+          window.location.replace("/login");
+        }, 1500);
+      });
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage)
+      console.log(errorCode, errorMessage);
+      
+      popup.style.display = "none";
+      
       if (errorCode === 'auth/email-already-in-use') {
         alert("Email already exists. Please use a different email or login.");
       } else if (errorCode === 'auth/invalid-email') {
         alert("Please enter a valid email address.");
+      } else if (errorCode === 'auth/weak-password') {
+        alert("Password is too weak. Please use a stronger password.");
       } else {
         alert("Error creating account. Please try again.");
       }
