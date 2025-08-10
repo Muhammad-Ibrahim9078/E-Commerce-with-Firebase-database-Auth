@@ -236,7 +236,7 @@ function addtoList(id, name, price, imgUrl){
   let addCardPrint = document.getElementById("addCardPrint");
 
   if (addCardPrint) {
-    addCardPrint.innerHTML = `
+    addCardPrint.innerHTML += `
     <p> ${name} </p>
     <p><b>Price:</b> ${price} </p>
     <img src="${imgUrl}" width="50px" height="50px" alt="${name}" onerror="this.src='https://via.placeholder.com/50x50?text=Image'">
